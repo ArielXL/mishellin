@@ -64,6 +64,18 @@ Command_t parse_command(char *cmd) {
             strcpy(command.args[argc], token);
             argc++;
         }
+        if (*last_token == '\0' && *token == '>') {
+            command.empty = 0;
+            command.args[argc] = malloc(sizeof(char) * strlen("echo"));
+            strcpy(command.args[argc], "echo");
+            argc++;
+            //adding echo
+            command.empty = 0;
+            command.args[argc] = malloc(sizeof(char) * 2);
+            strcpy(command.args[argc], "");
+            argc++;
+            //adding ""
+        }
         last_token = token;
         token = strtok(NULL, "\t \n");
     }

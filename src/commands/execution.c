@@ -129,7 +129,7 @@ int execute(Command_t command, int fdin, int its_last) {
     return pipefd[0];
 }
 
-int execute_line(CommandList_t cmdlist, list_t *l) {
+int execute_line(CommandList_t cmdlist, list_t *hist) {
     if (broken_pipe(cmdlist))
         return 1;
     if (cmdlist.len == 0)
@@ -137,7 +137,7 @@ int execute_line(CommandList_t cmdlist, list_t *l) {
     int pid = 0, fdin = 0, status = 0;
 
     if (cmdlist.len == 1) {
-        status = execute_simple(cmdlist.Commands[0], fdin, l);
+        status = execute_simple(cmdlist.Commands[0], fdin, hist);
         return status;
     }
     int i;
