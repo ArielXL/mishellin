@@ -1,0 +1,34 @@
+ping localhost > ping.txt
+cd ..
+cd Shell
+clear
+exit
+make
+exit
+clear
+exit
+exit
+clear
+exit
+clear
+cd Shell
+cd ..
+exit
+cd ..
+history
+clear
+exit
+make
+exit
+exit
+ping localhost > ping.txt
+clear
+exit
+echo Ariel
+python
+clear
+exit
+clear
+> text
+git log --oneline
+exit

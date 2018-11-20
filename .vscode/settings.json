@@ -1,0 +1,12 @@
+{
+	"files.associations": {
+		"entry.h": "c",
+		"cd.h": "c",
+		"evaluator.h": "c",
+		"types.h": "c",
+		"command.h": "c",
+		"execution.h": "c",
+		"list.h": "c",
+		"unistd.h": "c"
+	}
+}
