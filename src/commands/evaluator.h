@@ -14,7 +14,7 @@
 	#define MAXARGS 128
 	#define MAXLINE 300
 
-	extern int execute_line(CommandList_t cmdlist, list_t *l);
+	extern int execute_line(CommandList_t *cmdlist, list_t *l);
 	extern int cd(char *path);
 	extern CommandList_t parse(char *cmd_line, list_t *l);
 

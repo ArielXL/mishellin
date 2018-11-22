@@ -59,14 +59,20 @@ void prompt(char *user, char *hosts, char *workd) {
     "$ ");
 }
 
+int empty_line(char *line) {
+    if (*line == '\0' || *line == '\n')
+        return 1;
+    return 0;
+}
+
 int main(int argc, char const *argv[]) {
     init();
-
     char *command_line, *my_wd, *my_log, *my_hn;
+
     my_hn = malloc(sizeof(char) * (MAXLINE / 3));
     my_wd = malloc(sizeof(char) * (MAXLINE / 2));
     my_log = malloc(sizeof(char) * (MAXLINE / 3));
-    CommandList_t commandlist;
+
     command_line = malloc(sizeof(char) * MAXLINE);
 
     gethostname(my_hn, (MAXLINE / 3));
@@ -75,13 +81,15 @@ int main(int argc, char const *argv[]) {
     list_t hist;
     hist = get_init_hist(my_wd, hist);
 
-    // system("clear");
+    system("clear");
+
     while (1) {
         prompt(my_log, my_hn, my_wd);
 
         fgets(command_line, MAXLINE, stdin);
 
-        eval(command_line, &hist);
+        if (!empty_line(command_line))
+            eval(command_line, &hist);
     }
     return 0;
 }

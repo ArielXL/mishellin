@@ -40,9 +40,10 @@ Command_t parse_command(char *cmd) {
                 count_output_files_ap = count_output_files_ap << 2;
                 command.output_files_app = realloc(command.output_files_app, sizeof(char *) * count_output_files_ap);
             }
-
-            command.output_files_app[command.has_output_app] = malloc(sizeof(char) * (strlen(token) + 1));
+            int l = strlen(token);
+            command.output_files_app[command.has_output_app] = malloc(sizeof(char) * (l+1));
             strcpy(command.output_files_app[command.has_output_app], token);
+            command.output_files_app[command.has_output_app][l] = '\0';
             command.has_output_app++;
         } else if (strncmp(last_token, ">", 1) == 0) {
             if (count_output_files <= command.has_output) {
@@ -94,11 +95,11 @@ int parse_line(char *buf, CommandList_t *cmdlist, list_t *l) {
     int cmd_count = 0;
 
     Command_t *sub_commands;
-    sub_commands = malloc(sizeof(Command_t) * (strlen(buf) + 1));
+    sub_commands = malloc(sizeof(Command_t) * (strlen(buf) / 2 + 4));
 
     char *token;
     char **tokens;
-    tokens = malloc(sizeof(char *) * (strlen(buf) + 1));
+    tokens = malloc(sizeof(char *) * (strlen(buf) / 2 + 4));
 
     char *token_to_parse;
 
@@ -162,7 +163,7 @@ char *store_and_give_cmd(list_t *hist, char *buf) {
             buft = strtok(buf, "! \n");
 
             if (buft == NULL) {
-                printf("ERROR (null) its not a number\n");
+                printf("\"null\" its not a number\n");
                 return "\n";
             }
 
@@ -183,6 +184,29 @@ char *store_and_give_cmd(list_t *hist, char *buf) {
     return buf;
 }
 
+void print_state(CommandList_t *cmdlist) {
+    for (int i = 0; i < cmdlist->len; ++i) {
+        printf("%s: \n", cmdlist->Commands[i].lex);
+        printf(" - input-file: \n            - %s \n", cmdlist->Commands[i].has_input ? cmdlist->Commands[i].input_file : "\r\r");
+
+        printf(" - output-file: %d \n", cmdlist->Commands[i].has_output);
+        for (int k = 0; cmdlist->Commands[i].has_output && cmdlist->Commands[i].output_files[k]; ++k) {
+            printf("               %d - %s \n", k, cmdlist->Commands[i].output_files[k]);
+        }
+
+        printf(" - output-file-app: %d \n", cmdlist->Commands[i].has_output_app);
+        for (int k = 0; cmdlist->Commands[i].has_output_app && cmdlist->Commands[i].output_files_app[k]; ++k) {
+            printf("               %d - %s \n", k, cmdlist->Commands[i].output_files_app[k]);
+        }
+        printf(" - parsed: %d \n", cmdlist->Commands[i].parsed);
+        // printf(" - bg: %d \n", cmdlist.Commands[i].itsbg);
+        printf(" - empty: %d \n", cmdlist->Commands[i].empty);
+        for (int j = 0; cmdlist->Commands[i].args[j]; ++j) {
+            printf("\t - %d --> %s\n", j, cmdlist->Commands[i].args[j]);
+        }
+    }
+}
+
 CommandList_t parse(char *cmd_line, list_t *hist) {
     CommandList_t cmd_list;
     /* Holds unmodified command line */
@@ -194,6 +218,10 @@ CommandList_t parse(char *cmd_line, list_t *hist) {
     buf = store_and_give_cmd(hist, buf);
 
     parse_line(buf, &cmd_list, hist);
+
+    //
+    // print_state(&cmd_list);
+    //
 
     return cmd_list;
 }
