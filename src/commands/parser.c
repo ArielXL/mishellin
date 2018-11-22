@@ -113,7 +113,7 @@ int parse_line(char *buf, CommandList_t *cmdlist, list_t *l) {
         sub_commands[i] = parse_command(tokens[i]);
     }
     free(tokens);
-
+    free(token);//modified and not tested
     cmdlist->len = cmd_count;
     cmdlist->Commands = sub_commands;
 

@@ -55,14 +55,16 @@ int execute_simple(Command_t command, int fdin, list_t *l) {
             }
             if (command.has_input) {
                 dup2(fdin, 0);
+                // close(fdin);
             }
             if (command.has_output || command.has_output_app) {
                 dup2(fdout, 1);
+                // close(fdout);
             }
 
             execvp(command.lex, command.args);
 
-            printf("ERROR (%s)\n", command.lex);
+            printf("\"%s\" not found \n", command.lex);
             exit(2);
         }
         int status;
@@ -117,7 +119,7 @@ int execute(Command_t command, int fdin, int its_last) {
         } else {
             execvp(command.lex, command.args);
             // error
-            printf("ERROR (%s)\n", command.lex);
+            printf("\"%s\" not found \n", command.lex);
             exit(0);
         }
     }
