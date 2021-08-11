@@ -1,0 +1,50 @@
+cat testing.txt
+echo testing_appended >> testing.txt
+cat testing.txt
+echo output > testing.txt
+cat < testing.txt
+rm -rf testing.txt
+ls
+echo ---------------------------Testing pipes---------------------------
+ls -l | grep x
+echo testing | cat
+echo ---------------------------Has 3 points so far---------------------------
+echo ---------------------------Testing multiple pipes---------------------------
+echo testing | cat | cat | cat
+echo hola | tee /dev/stdout | tee /dev/stdout | cat
+echo ---------------------------Testing multiple spaces---------------------------
+echo    testing
+echo  Hola2
+ls  -l   -h -a
+echo hola |tee /dev/stdout |tee /dev/stdout|cat
+echo nospaces>some_file.txt
+cat some_file.txt
+rm some_file.txt
+ls
+echo ---------------------------Testing ampersand---------------------------
+sleep 07 &
+ps aux | grep 07
+jobs
+echo ---------------------------Done---------------------------
+clear
+exit
+ls   -l     |    grep  a  |  grep s           > a.txt
+cat a.txt
+clear
+exit
+cd
+clear
+exit
+clear
+exit
+exit
+make
+exit
+make
+exit
+exit
+python
+clear
+ls
+ls -a
+exit
