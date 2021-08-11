@@ -1,8 +1,8 @@
 MISHELLIN
 ============
 **Integrantes:**
-- Leonel Alejandro Garcia Lopez
-- Ariel Plasencia Diaz
+- Leonel Alejandro García López
+- Ariel Plasencia Díaz
 
 **Las funcionalidades implementadas son las siguientes:**
 
